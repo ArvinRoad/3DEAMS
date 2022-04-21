@@ -12,7 +12,7 @@
         }
         /* 背景 */
         canvas{
-            background-image: url(./resource/Demo04/imgs/starts.jpg);
+            background-image: url(resource/Demo04/imgs/starts.jpg);
             background-size: cover;
         }
         .label{
@@ -21,9 +21,9 @@
         }
     </style>
     <script type="module">
-        import *as THREE from './libs/build/three.module.js';
-        import{ OrbitControls } from './libs/jsm/controls/OrbitControls.js';
-        import { CSS2DRenderer,CSS2DObject } from './libs/jsm/renderers/CSS2DRenderer.js';
+        import *as THREE from '/libs/build/three.module.js';
+        import { OrbitControls } from '/libs/jsm/controls/OrbitControls.js';
+        import { CSS2DRenderer,CSS2DObject } from '/libs/jsm/renderers/CSS2DRenderer.js';
 
         // 声明全局变量
         let camera,scene,renderer,labelRenderer;
@@ -53,7 +53,7 @@
 
             // 月球
             const moonGeometry = new THREE.SphereGeometry(MOON_RADIUS,16,16);
-            const moonMaterial = new THREE.MeshPhongMaterial({ map:textureLoader.load('./resource/Demo04/textures/planets/moon_1024.jpg') }); // 可高光材质
+            const moonMaterial = new THREE.MeshPhongMaterial({ map:textureLoader.load('resource/Demo04/textures/planets/moon_4096.jpg') }); // 可高光材质
             moon = new THREE.Mesh(moonGeometry,moonMaterial);
             moon.receiveShadow = true; // 接收阴影
             moon.castShadow = true;
@@ -62,9 +62,9 @@
             const earthGeometry = new THREE.SphereGeometry(EARTH_RADIUS,16,16);
             const earthMaterial = new THREE.MeshPhongMaterial({
                 shininess:5,    // 调低镜面反射
-                map:textureLoader.load('./resource/Demo04/textures/planets/earth_atmos_2048.jpg'),
-                specularMap:textureLoader.load('./resource/Demo04/textures/planets/earth_specular_2048.jpg'),
-                normalMap:textureLoader.load('./resource/Demo04/textures/planets/earth_normal_2048.jpg')
+                map:textureLoader.load('resource/Demo04/textures/planets/earth_atmos_2048.jpg'),
+                specularMap:textureLoader.load('resource/Demo04/textures/planets/earth_specular_2048.jpg'),
+                normalMap:textureLoader.load('resource/Demo04/textures/planets/earth_normal_2048.jpg')
             })
             earth = new THREE.Mesh(earthGeometry,earthMaterial);
             earth.receiveShadow = true; // 接收阴影
@@ -84,7 +84,7 @@
             MoonDiv.textContent = '月球';
             const MoonLabel = new CSS2DObject(MoonDiv);
             MoonLabel.position.set(0,MOON_RADIUS+0.5,0);
-            moon.add(MoonLabel);4
+            moon.add(MoonLabel);
 
             // 渲染器
             renderer = new THREE.WebGLRenderer({
@@ -118,7 +118,7 @@
             let axis = new THREE.Vector3(0,1,0); // 环绕 Y 轴
             earth.rotateOnAxis(axis,(elapsed - oldTime) * Math.PI / 10);  // 1s 转一下
             renderer.render(scene,camera);
-            //labelRenderer.render(scene,camera);
+            labelRenderer.render(scene,camera);
             oldTime = elapsed;
             requestAnimationFrame(animate);
         }
