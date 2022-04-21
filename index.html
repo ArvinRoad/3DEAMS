@@ -53,7 +53,7 @@
 
             // 月球
             const moonGeometry = new THREE.SphereGeometry(MOON_RADIUS,16,16);
-            const moonMaterial = new THREE.MeshPhongMaterial({ map:textureLoader.load('resource/Demo04/textures/planets/moon_4096.jpg') }); // 可高光材质
+            const moonMaterial = new THREE.MeshPhongMaterial({ map:textureLoader.load('./resource/Demo04/textures/planets/moon_4096.jpg') }); // 可高光材质
             moon = new THREE.Mesh(moonGeometry,moonMaterial);
             moon.receiveShadow = true; // 接收阴影
             moon.castShadow = true;
