@@ -72,20 +72,19 @@
             scene.add(earth);
 
             // 地球标签
-            //const earthDiv = document.createElement('div');
-            //earthDiv.className = 'label';
-            //earthDiv.textContent = '地球';
-            //const eartchLabel = new CSS2DObject(earthDiv);
-            //eartchLabel.position.set(0,EARTH_RADIUS+0.5,0);
-            //earth.add(eartchLabel);
+            const earthDiv = document.createElement('div');
+            earthDiv.className = 'label';
+            earthDiv.textContent = '地球';
+            const eartchLabel = new CSS2DObject(earthDiv);
+            eartchLabel.position.set(0,EARTH_RADIUS+0.5,0);
+            earth.add(eartchLabel);
             // 月球标签
-            //const MoonDiv = document.createElement('div');
-            //.className = 'label';
-            //MoonDiv.textContent = '月球';
-            //const MoonLabel = new CSS2DObject(MoonDiv);
-            //MoonLabel.position.set(0,MOON_RADIUS+0.5,0);
-            //moon.add(MoonLabel);4
-            // 更新
+            const MoonDiv = document.createElement('div');
+            MoonDiv.className = 'label';
+            MoonDiv.textContent = '月球';
+            const MoonLabel = new CSS2DObject(MoonDiv);
+            MoonLabel.position.set(0,MOON_RADIUS+0.5,0);
+            moon.add(MoonLabel);4
 
             // 渲染器
             renderer = new THREE.WebGLRenderer({
@@ -97,14 +96,18 @@
             document.body.appendChild(renderer.domElement); // 渲染到页面
 
             // 标签渲染器
-            //labelRenderer = new CSS2DRenderer();
-            //labelRenderer.setSize(window.innerWidth,window.innerHeight);
-            //labelRenderer.domElement.style.position = 'absolute';
-            //labelRenderer.domElement.style.top = '0px';
-            //document.body.appendChild(labelRenderer.domElement);
+            labelRenderer = new CSS2DRenderer();
+            labelRenderer.setSize(window.innerWidth,window.innerHeight);
+            labelRenderer.domElement.style.position = 'absolute';
+            labelRenderer.domElement.style.top = '0px';
+            document.body.appendChild(labelRenderer.domElement);
 
             // 绑定三维场景控制器
-            const controls = new OrbitControls(camera,renderer.domElement);
+            const controls = new OrbitControls(camera,labelRenderer.domElement);
+            controls.addEventListener('change',()=>{
+                renderer.render(scene,camera);
+                labelRenderer.render(scene,camera);
+            })
         }
         var oldTime = 0;
         // 渲染动画函数
